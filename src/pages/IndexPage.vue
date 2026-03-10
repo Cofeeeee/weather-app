@@ -1,10 +1,13 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    />
+  <q-page class="column flex-center">
+	<div class="text-h4"> Вітаємо у додатку «Погода»! </div>
+	<p class="text-subtitle2"> Виберіть місто, щоб побачити прогноз погоди. </p>
+
+	<q-input>
+		<template v-slot:append>
+			<q-btn flat icon="search" aria-label="Search" />
+		</template>
+	</q-input>
   </q-page>
 </template>
 
