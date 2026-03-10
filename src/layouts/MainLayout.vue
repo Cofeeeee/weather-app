@@ -1,80 +1,65 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+	<q-layout view="lHh Lpr lFf">
+		<q-header elevated>
+			<q-toolbar>
+			<q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title> Quasar App </q-toolbar-title>
+			<q-toolbar-title> Додаток «Погода» </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
-      </q-toolbar>
-    </q-header>
+			<q-btn flat dense round icon="wb_sunny" aria-label="Home" to="/" />
+			</q-toolbar>
+		</q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header> Essential Links </q-item-label>
+		<q-drawer v-model="leftDrawerOpen" show-if-above bordered>
+			<q-list>
+			<q-item-label header> Навігація </q-item-label>
 
-        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
-      </q-list>
-    </q-drawer>
+			<EssentialLink 
+				v-for="link in navList" 
+				:key="link.title" 
+				v-bind="link" 
+			/>
+			</q-list>
+		</q-drawer>
 
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+		<q-page-container>
+			<router-view />
+		</q-page-container>
+	</q-layout>
 </template>
 
 <script setup>
+// Імпорт функції для реактивного стану
 import { ref } from 'vue'
+// Імпорт компонента для навігаційних посилань
 import EssentialLink from 'components/EssentialLink.vue'
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
-  },
+// Список навігаційних посилань для бічного меню
+const navList = [
+	{
+		title: 'Головна',
+		caption: 'Прогноз погоди для вашого міста',
+		icon: 'home',
+		link: '/'
+	},
+	{
+		title: 'Мої міста',
+		caption: 'Список обраних міст',
+		icon: 'favorite',
+		link: '/favorites'
+	},
+	{
+		title: 'Про проєкт',
+		caption: 'Детальніше про цей додаток',
+		icon: 'info',
+		link: '/about'
+	}
 ]
 
+// Стан бічного меню (відкрито/закрито)
 const leftDrawerOpen = ref(false)
 
+// Функція для перемикання стану бічного меню
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
