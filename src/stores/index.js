@@ -1,5 +1,6 @@
 import { defineStore } from '#q-app/wrappers'
 import { createPinia } from 'pinia'
+import './favorites-store'
 
 /*
  * If not building with SSR mode, you can

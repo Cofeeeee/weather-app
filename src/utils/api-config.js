@@ -15,12 +15,14 @@ export const API_CONFIG = {
 	units: import.meta.env.VITE_API_UNITS || 'metric'
 }
 
-// Константи для типів запитів
+// Константи для типів запитів (ендпоінти)
 export const API_ENDPOINTS = {
 	CURRENT_WEATHER: '/weather',      // Поточна погода
 	FORECAST: '/forecast',            // Прогноз (якщо знадобиться)
 	AIR_POLLUTION: '/air_pollution'   // Забруднення повітря (якщо знадобиться)
 }
+
+// --- Візуалізація (Іконки та Кольори) ---
 
 // Мапінг погодних іконок OpenWeatherMap на Material Icons
 export const WEATHER_ICONS = {
@@ -70,7 +72,7 @@ export const WEATHER_PARAM_ICONS = {
 	sunset: 'nightlight_round', // або 'brightness_3'
 }
 
-// Кольори для різних типів погоди (можна використовувати для фону або іконок)
+// Кольорова палітра для станів погоди
 export const WEATHER_COLORS = {
 	clear: '#f1c40f',         // Ясно - синій f1c40f - жовтий 4a90e2 - оригінал
 	cloudy: '#a0a0a0',        // Хмарно - сірий
@@ -80,6 +82,14 @@ export const WEATHER_COLORS = {
 	mist: '#bdc3c7'           // Туман - світло-сірий
 }
 
+// ---
+
+// --- Валідація та Логіка ---
+
+/**
+ * Перевіряє коректність налаштування API перед запуском запитів
+ * @returns {boolean} Результат валідації
+ */
 // Функція для валідації конфігурації API
 export const validateApiConfig = () => {
 	// Перевіряємо, чи встановлено API ключ
@@ -96,6 +106,8 @@ export const validateApiConfig = () => {
 
 	return true
 }
+
+// ---
 
 // Виконуємо валідацію при імпорті цього модуля
 export default API_CONFIG

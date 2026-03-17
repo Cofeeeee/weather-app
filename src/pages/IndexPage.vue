@@ -5,6 +5,7 @@
 		
 		<!-- Компонент для пошуку погоди по місту або координатах з використанням Leaflet та OpenWeatherMap API -->
 		<WeatherSearch 
+			:initial-coords="route.query"
 			@weather-found="onWeatherFound" 
 			@error="onError" 
 		/>
@@ -25,12 +26,15 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import WeatherSearch from 'components/WeatherSearch.vue'
+import { weatherApiService } from '../services/weather-api'
 import WeatherCard from 'components/WeatherCard.vue'
+import { useRoute } from 'vue-router'
 
 const currentWeather = ref(null)
 const errorMsg = ref(null)
+const route = useRoute()
 
 // Відповідь для користувача, яка залежить від стану додатку
 const message = computed(() => {
@@ -46,7 +50,7 @@ const message = computed(() => {
 
 // Обробник для отримання погоди з дочірнього компонента WeatherSearch
 function onWeatherFound(weather) {
-	currentWeather.value = weather // Якщо погода успішно знайдена, очищаємо повідомлення про помилку
+	currentWeather.value = { ...weather } // Якщо погода успішно знайдена, очищаємо повідомлення про помилку
 	errorMsg.value = null // Очищаємо повідомлення про помилку, якщо погода успішно знайдена
 }
 
@@ -55,4 +59,33 @@ function onError(err) {
 	currentWeather.value = null // Якщо сталася помилка, очищаємо поточну погоду
 	errorMsg.value = err // Показуємо текст помилки користувачу
 }
+
+async function loadWeatherFromUrl() {
+  const { lat, lon, city } = route.query
+  
+  try {
+    if (lat && lon) {
+      // Если есть координаты — ищем по ним
+      const data = await weatherApiService.getCurrentWeatherByCoords(
+        Number(lat), 
+        Number(lon)
+      )
+      onWeatherFound(data)
+    } else if (city) {
+      // Если есть только имя — ищем по имени
+      const data = await weatherApiService.getCurrentWeatherByCity(city)
+      onWeatherFound(data)
+    }
+  } catch (err) {
+    onError(err.message || 'Не вдалося завантажити локацію')
+  }
+}
+
+watch(() => route.query, () => {
+  loadWeatherFromUrl()
+}, { deep: true })
+
+onMounted(() => {
+  loadWeatherFromUrl() // Загружаем погоду при загрузке страницы, если в URL есть параметр ?city
+})
 </script>
