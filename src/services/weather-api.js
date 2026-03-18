@@ -3,8 +3,15 @@
  * Інкапсулює всі HTTP-запити та обробку помилок
  */
 
+// --- Імпорти ---
+
+// Бібліотеки
 import axios from 'axios'
+
+// Утиліти та конфігурація
 import { API_CONFIG, API_ENDPOINTS, validateApiConfig } from '../utils/api-config'
+
+// ---
 
 /**
  * Клас сервісу для роботи з погодним API
@@ -16,6 +23,7 @@ export class WeatherApiService {
 			throw new Error('Конфігурація API не налаштована. Перевірте .env файли.')
 		}
 
+		// Ініціалізація параметрів
 		this.apiKey = API_CONFIG.key
 		this.baseURL = API_CONFIG.baseURL
 		this.units = API_CONFIG.units
@@ -25,14 +33,16 @@ export class WeatherApiService {
 			baseURL: this.baseURL,
 			timeout: 10000, // 10 секунд таймаут
 			headers: {
-			'Content-Type': 'application/json'
+				'Content-Type': 'application/json'
 			}
 		})
 	}
 
+	// --- Основні методи API ---
+
   /**
    * Отримання поточної погоди за назвою міста
-   * @param {string} city - Назва міста (наприклад: "Kyiv", "London")
+   * @param {string} city - Назва міста
    * @returns {Promise<Object>} Дані про погоду
    */
 	async getCurrentWeatherByCity(city) {
@@ -89,6 +99,10 @@ export class WeatherApiService {
 			throw this.handleError(error, `пошуку погоди за координатами: ${lat}, ${lon}`)
 		}
 	}
+
+	// ---
+
+	// --- Допоміжні методи (Обробка даних) ---
 
   /**
    * Обробка та нормалізація даних про погоду
@@ -148,7 +162,7 @@ export class WeatherApiService {
    * @returns {Error} Оброблена помилка
    */
 	handleError(error, operation = '') {
-		console.error('Погодна помилка:', error)
+		console.error('❌ Погодна помилка:', error)
 
 		// Помилка мережі або сервер не доступний
 		if (!error.response) {
@@ -186,10 +200,16 @@ export class WeatherApiService {
 				return new Error(`Помилка сервера (${status}) під час ${operation}: ${message || 'Невідома помилка.'}`)
 		}
 	}
+
+	// ---
 }
+
+// --- Експорт ---
 
 // Експорт екземпляра сервісу для зручного використання
 export const weatherApiService = new WeatherApiService()
 
 // Експорт для використання в компонентах
 export default WeatherApiService
+
+// ---
