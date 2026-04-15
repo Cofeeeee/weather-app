@@ -1,16 +1,39 @@
 # Weather App
 
-Мультиплатформний навчальний проєкт погоди для курсу «Кросплатформене програмування».
+Мультиплатформний навчальний проєкт для моніторингу погоди, розроблений в рамках курсу «Кросплатформене програмування».
 
-Лабораторні роботи:
-1. Web-застосунок
-2. Desktop-застосунок (Windows / Linux / Mac)
-3. Mobile-застосунок (iOS / Android)
+Застосунок дозволяє отримувати актуальні дані про погоду в будь-якому місті світу, використовуючи сучасний стек веб-технологій.
 
-Програмне забезпечення, розроблене з використанням Vue.js у середовищі Quasar.
-Реалізація проєкту виконана для платформ Web, Linux та Android.
+## 📱 Завантажити Android-версію
+Ви можете завантажити останню стабільну збірку додатка для Android тут:
 
-## Install the dependencies
+[🚀 **Скачати Weather App (APK)**](https://github.com/Cofeeeee/weather-app/releases/latest/download/app-debug.apk)
+
+> **Примітка:** Для встановлення файлу поза Google Play потрібно дозволити інсталяцію з "невідомих джерел" у налаштуваннях вашого смартфона.
+
+---
+
+## 🛠 Технологічний стек
+Проєкт реалізований на базі **Quasar Framework** та **Vue.js 3** (Composition API). Для мобільної збірки використано **Capacitor**.
+
+**Платформи, що підтримуються в рамках роботи:**
+1. **Web-застосунок** (Vite-збірка)
+2. **Desktop-застосунок** (Linux / Windows)
+3. **Mobile-застосунок** (Android)
+
+---
+
+## 🚀 Основний функціонал
+- Пошук поточної погоди за назвою міста.
+- Відображення температури, швидкості вітру та вологості.
+- Адаптивний дизайн для мобільних пристроїв та ПК.
+- Інтеграція з OpenWeatherMap API через Axios.
+
+---
+
+## 🔧 Інструкція для розробника
+
+### Встановлення залежностей
 
 ```bash
 yarn
@@ -18,34 +41,20 @@ yarn
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Запуск у режимі розробки
 
 ```bash
 quasar dev
 ```
 
-### Lint the files
+### Збірка для Android (Production)
 
 ```bash
-yarn lint
-# or
-npm run lint
+quasar build -m capacitor -T android
 ```
 
-### Format the files
-
-```bash
-yarn format
-# or
-npm run format
-```
-
-### Build the app for production
+### Збірка Web-версії
 
 ```bash
 quasar build
 ```
-
-### Customize the configuration
-
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
