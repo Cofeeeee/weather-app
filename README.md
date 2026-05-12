@@ -15,7 +15,7 @@
 
 Ви можете завантажити останню стабільну збірку desktop-додатку тут:
 
-🚀 [Скачати Weather App (Desktop)](сюда_ссылка_на_release)
+🚀 [Скачати Weather App (Desktop)](https://github.com/Cofeeeee/weather-app/releases/download/v1.1.0/Weather.App.exe)
 
 > Примітка: Підтримуються Windows та Linux. Для Windows використовується файл Setup.exe.
 
